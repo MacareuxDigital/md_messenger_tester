@@ -10,12 +10,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Macareux\MessengerTester\Task\ConfigTestTaskController;
 use Macareux\MessengerTester\Task\EnvironmentDetectTestTaskController;
 use Macareux\MessengerTester\Task\FailedMessageTestTaskController;
+use Macareux\MessengerTester\Task\QueueTestTaskController;
 
 class Controller extends Package
 {
     protected $pkgHandle = 'md_messenger_tester';
     protected $appVersionRequired = '9.0.0';
-    protected $pkgVersion = '1.0.0';
+    protected $pkgVersion = '1.0.1';
     protected $pkgAutoloaderRegistries = [
         'src' => '\Macareux\MessengerTester',
     ];
@@ -38,6 +39,7 @@ class Controller extends Package
             'md_messenger_tester_config_test',
             'md_messenger_tester_environment_detect_test',
             'md_messenger_tester_failed_message_test',
+            'md_messenger_tester_queue_test',
         ];
 
         /** @var EntityManagerInterface $entityManager */
@@ -81,6 +83,10 @@ class Controller extends Package
         });
         $manager->extend('md_messenger_tester_failed_message_test', function () {
             return new FailedMessageTestTaskController();
+        });
+
+        $manager->extend('md_messenger_tester_queue_test', function () {
+            return new QueueTestTaskController();
         });
     }
 }
